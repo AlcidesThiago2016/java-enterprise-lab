@@ -8,9 +8,14 @@ public class Equipamento {
     private String fabricante;
     private StatusEquipamento status;
     private Double horimetro;
+    private Motor motor;
 
 
     public Equipamento(Long id, String nome, String modelo, String fabricante, Double horimetro) {
+        this(id, nome, modelo, fabricante, horimetro, null);
+    }
+
+    public Equipamento(Long id, String nome, String modelo, String fabricante, Double horimetro, Motor motor) {
 
         if (horimetro <= 0) {
             throw new IllegalArgumentException("Horímetro não pode ser negativo");
@@ -22,6 +27,7 @@ public class Equipamento {
         this.fabricante = fabricante;
         this.status = StatusEquipamento.ATIVO;
         this.horimetro = horimetro;
+        this.motor = motor;
     }
 
     public void ativar() {
@@ -41,6 +47,18 @@ public class Equipamento {
             throw new IllegalArgumentException("O novo horímetro não pode ser menor que o horímetro atual");
         }
         this.horimetro = novoHorimetro;
+    }
+
+    public void instalarMotor(Motor motor) {
+        this.motor = motor;
+    }
+
+    public Motor getMotor() {
+        return motor;
+    }
+
+    public String descricaoOperacional(){
+        return "Equipamento de operação";
     }
 
     public String getNome() {

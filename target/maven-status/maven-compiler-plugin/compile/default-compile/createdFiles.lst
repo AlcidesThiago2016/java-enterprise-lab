@@ -1,3 +1,6 @@
 br/com/alcidesthiago/enterprise/equipamento/Equipamento.class
-br/com/alcidesthiago/enterprise/equipamento/StatusEquipamento.class
 br/com/alcidesthiago/enterprise/Main.class
+br/com/alcidesthiago/enterprise/equipamento/StatusEquipamento.class
+br/com/alcidesthiago/enterprise/equipamento/Caminhao.class
+br/com/alcidesthiago/enterprise/equipamento/Perfuratriz.class
+br/com/alcidesthiago/enterprise/equipamento/Motor.class

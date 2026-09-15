@@ -1,25 +1,36 @@
 package br.com.alcidesthiago.enterprise;
 
 import br.com.alcidesthiago.enterprise.equipamento.Equipamento;
+import br.com.alcidesthiago.enterprise.equipamento.Perfuratriz;
+import br.com.alcidesthiago.enterprise.equipamento.Caminhao;
+import br.com.alcidesthiago.enterprise.equipamento.Motor;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Equipamento equipamento = new Equipamento(
-            1L,
-            "CMV TH18",
+        Motor motor = new Motor("Cummins", "QSB6.7");
+
+        Perfuratriz perfuratriz = new Perfuratriz(
+            2L,
+            "Perfuratriz TH18",
             "TH18",
             "CMV",
             1250.0
         );
-        System.out.println("Equipamento: " + equipamento.getNome());
-        System.out.println("Status: " + equipamento.getStatus());
-        System.out.println("Horimetro: " + equipamento.getHorimetro());
-        equipamento.enviarParaManutencao();
-        System.out.println("Novo Status: " + equipamento.getStatus());
+        perfuratriz.instalarMotor(motor);
 
-        equipamento.atualizarHorimetro(1200.0);
-        System.out.println("Novo Horimetro: " + equipamento.getHorimetro());
+        Caminhao caminhao = new Caminhao(
+            3L,
+            "VW 26220",
+            "26220",
+            "Volkswagen",
+            1000.0
+        );
+
+        System.out.println(perfuratriz.descricaoOperacional());
+        System.out.println(caminhao.descricaoOperacional());
+        System.out.println(perfuratriz.getMotor().getFabricante());
+        System.out.println(perfuratriz.getMotor().getModelo());
     }
 }
