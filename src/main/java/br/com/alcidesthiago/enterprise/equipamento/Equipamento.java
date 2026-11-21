@@ -1,5 +1,7 @@
 package br.com.alcidesthiago.enterprise.equipamento;
 
+import java.util.Objects;
+
 public class Equipamento {
 
     private Long id;
@@ -71,5 +73,25 @@ public class Equipamento {
 
     public StatusEquipamento getStatus() {
         return status;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+       if (this == o) {
+           return  true;
+       }
+       
+       if(o == null || getClass() != o.getClass()) {
+           return  false;
+       }
+       
+       Equipamento that = (Equipamento) o;
+       
+       return Objects.equals(id, that.id);
+    }
+    
+    @Override
+    public int hashCode() {
+        return  Objects.hash(id);
     }
 }
