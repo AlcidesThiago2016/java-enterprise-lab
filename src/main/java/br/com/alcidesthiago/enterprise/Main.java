@@ -4,49 +4,82 @@ import br.com.alcidesthiago.enterprise.equipamento.Caminhao;
 import br.com.alcidesthiago.enterprise.equipamento.Equipamento;
 import br.com.alcidesthiago.enterprise.equipamento.Perfuratriz;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Equipamento equipamentoA = new Perfuratriz(
-            100L,
+        Map<Long,Equipamento> equipamentos = new HashMap<>();
+        
+        Equipamento sany = new Perfuratriz(
+            1L,
             "SANY SR180",
             "SR180",
             "SANY",
-            2500.0
-        );
-        
-        Equipamento equipamentoB = new Perfuratriz(
-            100L,
-            "SANY SR180",
-            "SR180",
-            "SANY",
-            2500.0
+            2500.00
         );
 
+        Equipamento cmv = new Perfuratriz(
+            2L,
+            "CMV TH18",
+            "TH18",
+            "CMV",
+            3200.00
+        );
 
-        Set<Equipamento> equipamentoSet = new HashSet<>();
+        Equipamento caminhao = new Caminhao(
+            3L,
+            "VW 26220",
+            "26220",
+            "Volkswagem",
+            5000.00
+        );
         
-        equipamentoSet.add(equipamentoA);
-        equipamentoSet.add(equipamentoB);
+        equipamentos.put(1L, sany);
+        equipamentos.put(2L, cmv);
+        equipamentos.put(3L, caminhao);
 
-        System.out.println("Quantidade no set: " + equipamentoSet.size());
-
-        System.out.println("== : " + (equipamentoA == equipamentoB));
-
-        System.out.println("Equals: " + equipamentoA.equals(equipamentoB));
-
-        System.out.println("Contains A: " + equipamentoSet.contains(equipamentoA));
-
-        System.out.println("Contains B: " + equipamentoSet.contains(equipamentoB));
+        System.out.println("Quantidade: " + equipamentos.size());
         
-        equipamentoSet.remove(equipamentoB);
+        Equipamento encontrado = equipamentos.get(2L);
 
-        System.out.println("Quantidade apos remove: " + equipamentoSet.size());
+        System.out.println("Encontrado: " + encontrado.getNome());
+
+        System.out.println("Existe chave 3? " + equipamentos.containsKey(3L));
+
+        System.out.println("Existe equipamento CMV? " + equipamentos.containsValue(cmv));
+        
+        equipamentos.put(
+            2L,
+            new Perfuratriz(
+                4L,
+                "EM800/30",
+                "EM800",
+                "Fundex",
+                1800.0
+            )
+        );
+
+        System.out.println(equipamentos.get(2L).getNome());
+        
+        for (Long id : equipamentos.keySet()) {
+            System.out.println("ID: " + id);
+        }
+        
+        for (Equipamento equipamento : equipamentos.values()) {
+            System.out.println(equipamento.getNome());
+        }
+        
+        for (Map.Entry<Long, Equipamento> entry : equipamentos.entrySet()) {
+            System.out.println("ID: " + entry.getKey()
+            );
+
+            System.out.println("Equipamento: " + entry.getValue().getNome());
+        }
+        
+        equipamentos.remove(1L);
+
+        System.out.println("Quantidade Final: " + equipamentos.size());
     }
 }
