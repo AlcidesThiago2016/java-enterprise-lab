@@ -221,7 +221,7 @@ entrySet
 - [x] Wrapper Classes
 - [x] Autoboxing / Unboxing
 - [x] equals / hashCode
-- [ ] String / StringBuilder
+- [x] String / StringBuilder
 - [ ] BigDecimal
 - [ ] Optional
 - [ ] Lambdas
