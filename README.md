@@ -222,9 +222,9 @@ entrySet
 - [x] Autoboxing / Unboxing
 - [x] equals / hashCode
 - [x] String / StringBuilder
-- [ ] BigDecimal
-- [ ] Optional
-- [ ] Lambdas
+- [x] BigDecimal
+- [x] Optional
+- [x] Lambdas
 - [ ] Streams
 - [ ] Exceptions customizadas
 

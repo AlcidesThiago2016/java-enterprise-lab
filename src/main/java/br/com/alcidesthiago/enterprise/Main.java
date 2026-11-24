@@ -31,18 +31,29 @@ public class Main {
         equipamentos.put(1L, sany);
         equipamentos.put(2L, cmv);
         
-        StringBuilder relatorio = new StringBuilder();
-        
-        for (Equipamento equipamento: equipamentos.values()) {
-            relatorio.append("Nome: ")
-                     .append(equipamento.getNome())
-                     .append("\n")
-                     .append("Status: ")
-                     .append(equipamento.getStatus())
-                     .append("\n")
-                .append("----------------\n");
-        }
+        Optional<Equipamento> resultado = buscarPorId(equipamentos, 1L);
 
-        System.out.println(relatorio);
+        System.out.println(resultado);
+        
+        Optional<Equipamento> inexistente = buscarPorId(equipamentos, 999L);
+
+        System.out.println(inexistente);
+        
+        String nome = buscarPorId(equipamentos, 99L)
+            .map(Equipamento::getNome)
+            .orElse("NAO encontrado!");
+
+        System.out.println(nome);
+        
     }
+
+    public static Optional<Equipamento> buscarPorId(
+        Map<Long, Equipamento> equipamentos,
+        Long id) {
+
+        return Optional.ofNullable(
+            equipamentos.get(id)
+        );
+    }    
 }
+
