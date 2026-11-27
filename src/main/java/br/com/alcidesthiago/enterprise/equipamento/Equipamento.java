@@ -10,6 +10,7 @@ public class Equipamento {
     private String fabricante;
     private StatusEquipamento status;
     private Double horimetro;
+    private Double horimetroUltimaManutencao;
     private Motor motor;
 
 
@@ -31,7 +32,7 @@ public class Equipamento {
         this.horimetro = horimetro;
         this.motor = motor;
     }
-
+    
     public void ativar() {
         this.status = StatusEquipamento.ATIVO;
     }
@@ -44,11 +45,21 @@ public class Equipamento {
         this.status = StatusEquipamento.EM_MANUTENCAO;
     }
 
-    public void atualizarHorimetro(Double novoHorimetro) {
-        if (novoHorimetro <= this.horimetro) {
-            throw new IllegalArgumentException("O novo horímetro não pode ser menor que o horímetro atual");
+    public void atualizarHorimetro(double novoHorimetro) {
+        if (novoHorimetro < this.horimetro) {
+            throw new IllegalArgumentException(
+                "O novo horímetro não pode ser menor que o horímetro atual"
+            );
         }
         this.horimetro = novoHorimetro;
+    }
+    
+    public void registrarManutencao(){
+        this.horimetroUltimaManutencao = this.horimetro;
+    }
+    
+    public Double getHorimetroUltimaManutencao() {
+        return horimetroUltimaManutencao;
     }
 
     public void instalarMotor(Motor motor) {
@@ -75,6 +86,17 @@ public class Equipamento {
         return status;
     }
     
+    void atualizarHorimetro(int novaLeitura){
+        if(novaLeitura >= horimetro){
+            System.out.println("Leitura Aceita");
+        }
+        horimetro = (double) novaLeitura;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
     @Override
     public boolean equals(Object o) {
        if (this == o) {

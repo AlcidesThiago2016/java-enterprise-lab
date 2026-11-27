@@ -225,8 +225,39 @@ entrySet
 - [x] BigDecimal
 - [x] Optional
 - [x] Lambdas
-- [ ] Streams
-- [ ] Exceptions customizadas
+- [x] Streams
+- [x] Method References
+- [x] Comparator
+- [x] Repositório genérico em memória
+
+## Repositório genérico em memória
+
+Implementação de um repositório utilizando Generics, Collections, Optional e Stream API.
+
+### Funcionalidades
+
+- Cadastro e atualização de equipamentos por identificador.
+- Busca por ID utilizando Optional.
+- Listagem de equipamentos.
+- Filtragem por status e horímetro.
+- Ordenação crescente e decrescente.
+- Ordenação por nome.
+- Contagem de registros.
+- Remoção por identificador.
+
+### Conceitos aplicados
+
+- Generics e Bounded Generics.
+- Encapsulamento.
+- Separação de responsabilidades.
+- Stream API.
+- Expressões lambda.
+- Method References.
+- Comparator.
+- Optional.
+- HashMap.
+
+O repositório utiliza armazenamento em memória, preparando a evolução do projeto para persistência com Spring Data JPA e PostgreSQL.
 
 ### Testes
 

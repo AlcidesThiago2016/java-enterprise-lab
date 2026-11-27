@@ -1,59 +1,65 @@
 package br.com.alcidesthiago.enterprise;
 
-import br.com.alcidesthiago.enterprise.equipamento.Caminhao;
 import br.com.alcidesthiago.enterprise.equipamento.Equipamento;
 import br.com.alcidesthiago.enterprise.equipamento.Perfuratriz;
+import br.com.alcidesthiago.enterprise.equipamento.StatusEquipamento;
+import br.com.alcidesthiago.enterprise.repository.Repository;
 
-import java.util.*;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Map<Long,Equipamento> equipamentos = new HashMap<>();
+        Repository<Equipamento> repository = new Repository<>();
+        
+        Equipamento equipamento = new Equipamento(1L,"EM800/30", "EM800", "CZM", 750.0);
+        Equipamento sany = new Perfuratriz(2L, "SANY SR180", "SR180", "SANY", 2500.0);
+        
+        equipamento.registrarManutencao();
+        equipamento.atualizarHorimetro(1250.0);
+        
+        double horasTrabalhadas = equipamento.getHorimetro() - equipamento.getHorimetroUltimaManutencao();
 
-        Equipamento sany = new Perfuratriz(
-            1L,
-            "SANY SR180",
-            "SR180",
-            "SANY",
-            2500.00
+        System.out.println(equipamento.getNome() + " - " + horasTrabalhadas + " h");
+
+        repository.save(equipamento);
+        repository.save(sany);
+        
+        repository.findById(1L)
+            .ifPresent(e -> System.out.println("Encontrado: " + e.getNome()));
+        
+        repository.listAll()
+            .forEach(e -> System.out.println(
+                e.getNome() + " - " + e.getHorimetro()
+            ));
+
+        System.out.println("Equipamentos acima de 2000 horas:");
+        
+        repository.findByHours(2000.0)
+            .forEach(e -> System.out.println(
+                                            e.getNome() + " - "
+                                            + e.getHorimetro() + " h"
+            ));
+        
+        repository.findByStatus(StatusEquipamento.ATIVO)
+            .forEach(e -> System.out.println(e.getNome()));
+
+        System.out.println("Ordenacao crescente:");
+        
+        repository.listByHour()
+            .forEach(e -> System.out.println(e.getNome() + " - " + e.getHorimetro()));
+        
+        long ativos = repository.contByStatus(
+            StatusEquipamento.ATIVO
         );
 
-        Equipamento cmv = new Perfuratriz(
-            2L,
-            "CMV TH18",
-            "TH18",
-            "CMV",
-            3200.00
-        );
-        
-        equipamentos.put(1L, sany);
-        equipamentos.put(2L, cmv);
-        
-        Optional<Equipamento> resultado = buscarPorId(equipamentos, 1L);
+        System.out.println("Equipamentos Ativos: " + ativos);
 
-        System.out.println(resultado);
-        
-        Optional<Equipamento> inexistente = buscarPorId(equipamentos, 999L);
-
-        System.out.println(inexistente);
-        
-        String nome = buscarPorId(equipamentos, 99L)
-            .map(Equipamento::getNome)
-            .orElse("NAO encontrado!");
-
-        System.out.println(nome);
-        
+        System.out.println("Total: " + repository.contByStatus(StatusEquipamento.ATIVO));
+        System.out.println("Removido: " + repository.remove(1L));
+        System.out.println("Total: " + repository.contByStatus(StatusEquipamento.ATIVO));
+        System.out.println("Removido: " + repository.remove(999L));
     }
-
-    public static Optional<Equipamento> buscarPorId(
-        Map<Long, Equipamento> equipamentos,
-        Long id) {
-
-        return Optional.ofNullable(
-            equipamentos.get(id)
-        );
-    }    
 }
 
